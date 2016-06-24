@@ -25,7 +25,7 @@
     <TextView android:id="@+id/id_tv_tip"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@color/skin_item_text_color"
+              android:textColor="@color/skin_textColor"
               android:text="鸿洋"
               android:layout_toRightOf="@id/id_iv_icon"
               android:layout_alignBottom="@id/id_iv_icon"
