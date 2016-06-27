@@ -33,62 +33,47 @@ public class ResourceManager {
         name = appendSuffix(name);
         String sName = "d_" + name;
 
-        try {
-            int id;
-            if(mResIdxs.containsKey(sName)){
-                id = mResIdxs.get(sName);
-            } else {
-                id = mResources.getIdentifier(name, DEFTYPE_DRAWABLE, mPluginPackageName);
-                if (id == 0) {
-                    id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
-                }
-                mResIdxs.put(sName, id);
+        int id;
+        if (mResIdxs.containsKey(sName)) {
+            id = mResIdxs.get(sName);
+        } else {
+            id = mResources.getIdentifier(name, DEFTYPE_DRAWABLE, mPluginPackageName);
+            if (id == 0) {
+                id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
             }
-
-            return id == 0 ? null : mResources.getDrawable(id);
-        } catch (Resources.NotFoundException e) {
-            return null;
+            mResIdxs.put(sName, id);
         }
+        return id == 0 ? null : mResources.getDrawable(id);
     }
 
     public int getColor(String name) {
-        try {
-            name = appendSuffix(name);
+        name = appendSuffix(name);
 
-            String sName = "c_" + name;
-            int id;
-            if(mResIdxs.containsKey(sName)){
-                id = mResIdxs.get(sName);
-            } else {
-                id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
-                mResIdxs.put(sName, id);
-            }
-
-            return id == 0 ? -1 : mResources.getColor(id);
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-            return -1;
+        String sName = "c_" + name;
+        int id;
+        if (mResIdxs.containsKey(sName)) {
+            id = mResIdxs.get(sName);
+        } else {
+            id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
+            mResIdxs.put(sName, id);
         }
+
+        return id == 0 ? -1 : mResources.getColor(id);
     }
 
     public ColorStateList getColorStateList(String name) {
-        try {
-            name = appendSuffix(name);
+        name = appendSuffix(name);
 
-            String sName = "csl_" + name;
-            int id;
-            if(mResIdxs.containsKey(sName)){
-                id = mResIdxs.get(sName);
-            } else {
-                id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
-                mResIdxs.put(sName, id);
-            }
-
-            return id == 0 ? null : mResources.getColorStateList(id);
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-            return null;
+        String sName = "csl_" + name;
+        int id;
+        if (mResIdxs.containsKey(sName)) {
+            id = mResIdxs.get(sName);
+        } else {
+            id = mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName);
+            mResIdxs.put(sName, id);
         }
+
+        return id == 0 ? null : mResources.getColorStateList(id);
     }
 
     private String appendSuffix(String name) {

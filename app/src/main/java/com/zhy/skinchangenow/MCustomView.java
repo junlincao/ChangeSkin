@@ -3,6 +3,7 @@ package com.zhy.skinchangenow;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +23,7 @@ import com.zhy.changeskin.base.ISkinable;
 public class MCustomView extends TextView implements ISkinable {
 
     private int mPreColor;
+    private int mNoColor;
     private Drawable mBgD;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -43,15 +45,23 @@ public class MCustomView extends TextView implements ISkinable {
         mBgD = a.getDrawable(R.styleable.MCustomView_MCV_background);
         a.recycle();
 
-        if(mBgD == null){
+        if (mBgD == null) {
             mBgD = ContextCompat.getDrawable(context, R.drawable.skin_mainbg);
         }
+
+        mNoColor = Color.GREEN;
     }
 
     @Override
     public void applySkin(ResourceManager rm) {
         mPreColor = rm.getColor("skin_textColor");
         mBgD = rm.getDrawableByName("skin_mainbg");
+
+        int noColor = rm.getColor("skin_noColor");
+        if (noColor != -1) {
+            mNoColor = noColor;
+        }
+
         invalidate();
     }
 
@@ -64,5 +74,8 @@ public class MCustomView extends TextView implements ISkinable {
 
         mPaint.setColor(mPreColor);
         canvas.drawRect(0, 0, 100, 100, mPaint);
+
+        mPaint.setColor(mNoColor);
+        canvas.drawRect(200, 0, 300, 100, mPaint);
     }
 }

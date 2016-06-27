@@ -58,12 +58,11 @@ public class BaseSkinActivity extends AppCompatActivity implements ISkinChangedL
 
         List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(attrs, context);
 
-        if (view != null && view instanceof ISkinable) {
-            skinAttrList.add(new SkinAttr(SkinAttrType.CUSTOM, null));
-            return view;
-        } else if (skinAttrList.isEmpty()) {
-            return view;
-        } else if (view == null) {
+        if (view != null) {
+            if (view instanceof ISkinable) {
+                skinAttrList.add(new SkinAttr(SkinAttrType.CUSTOM, null));
+            }
+        } else {
             view = createViewFromTag(context, name, attrs);
 
             if (view instanceof ISkinable) {
