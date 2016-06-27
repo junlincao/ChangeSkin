@@ -18,11 +18,11 @@ import android.view.View;
 import com.zhy.changeskin.SkinManager;
 import com.zhy.changeskin.attr.SkinAttr;
 import com.zhy.changeskin.attr.SkinAttrSupport;
+import com.zhy.changeskin.attr.SkinAttrType;
 import com.zhy.changeskin.attr.SkinView;
 import com.zhy.changeskin.callback.ISkinChangedListener;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,20 +52,23 @@ public class BaseSkinActivity extends AppCompatActivity implements ISkinChangedL
             }
             Object object = sCreateViewMethod.invoke(delegate, parent, name, context, attrs);
             view = (View) object;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(attrs, context);
-        if (skinAttrList.isEmpty()) {
+
+        if (view != null && view instanceof ISkinable) {
+            skinAttrList.add(new SkinAttr(SkinAttrType.CUSTOM, null));
             return view;
-        }
-        if (view == null) {
+        } else if (skinAttrList.isEmpty()) {
+            return view;
+        } else if (view == null) {
             view = createViewFromTag(context, name, attrs);
+
+            if (view instanceof ISkinable) {
+                skinAttrList.add(new SkinAttr(SkinAttrType.CUSTOM, null));
+            }
         }
         injectSkin(view, skinAttrList);
         return view;

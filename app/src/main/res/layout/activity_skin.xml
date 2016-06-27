@@ -6,6 +6,12 @@
     android:background="@drawable/skin_mainbg"
     android:orientation="vertical">
 
+    <com.zhy.skinchangenow.MCustomView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/skin_mainbg"
+        />
+
     <GridView
         android:id="@+id/grid"
         android:layout_width="match_parent"
@@ -13,4 +19,5 @@
         android:horizontalSpacing="10dp"
         android:numColumns="5"
         android:verticalSpacing="10dp" />
+
 </LinearLayout>
