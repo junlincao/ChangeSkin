@@ -1,10 +1,9 @@
 package com.zhy.skinchangenow;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -39,7 +38,14 @@ public class MCustomView extends TextView implements ISkinable {
 
         setGravity(Gravity.CENTER);
         mPreColor = ContextCompat.getColor(context, R.color.skin_textColor);
-        mBgD = ContextCompat.getDrawable(context, R.drawable.skin_mainbg);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MCustomView);
+        mBgD = a.getDrawable(R.styleable.MCustomView_MCV_background);
+        a.recycle();
+
+        if(mBgD == null){
+            mBgD = ContextCompat.getDrawable(context, R.drawable.skin_mainbg);
+        }
     }
 
     @Override

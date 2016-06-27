@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="enable" format="boolean"/>
+
+    <declare-styleable name="MCustomView">
+        <attr name="MCV_background" format="reference"/>
+    </declare-styleable>
 </resources>
